@@ -1,0 +1,17 @@
+{
+  "eval": true,
+  "exec": true,
+  "emote": true,
+  "welcome": {
+    "enable": false,
+    "onlyWhenOnline": true,
+    "servers": [
+      "45948121594753455"
+    ],
+    "messages": [
+      "Welcome!"],
+    "typingInterval": 3,
+    "minDelay": 3,
+    "maxDelay": 20
+  }
+}
