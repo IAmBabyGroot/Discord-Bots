@@ -1,6 +1,5 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
-var key = require('../../Main.js').memes_token;
 var embed;
 var Member;
 var Guild;
@@ -153,4 +152,4 @@ client.on('message', function(message) {
 
 });
 
-client.login(key);
+client.login(process.env.memes_bot);

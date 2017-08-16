@@ -1,1 +1,1 @@
-worker: node Main.js
+worker: foreman Main.js
