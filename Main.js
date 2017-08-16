@@ -1,5 +1,7 @@
 const child = require('child_process')
 
+var memes_token = process.env.memes_bot;
+
 startAll()
 
 async function startAll () {

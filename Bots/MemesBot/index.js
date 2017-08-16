@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
-var key = process.env.token;
+var key = require('../../Main.js').memes_token;
 var embed;
 var Member;
 var Guild;
