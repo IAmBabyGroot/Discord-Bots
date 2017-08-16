@@ -18,7 +18,7 @@ async function startAll () {
 }
 
 async function start (input) {
-  const file = await child.spawn('node', [input])
+  const file = await child.spawn('nodemon', [input])
 
   file.stdout.on('data', (data) => {
     console.log(String(data))

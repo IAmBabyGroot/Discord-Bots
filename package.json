@@ -1,6 +1,6 @@
 {
-  "name": "discord.js-bots",
-  "description": "All of my Discord.JS bots",
+  "name": "discord-bots",
+  "description": "All of my discord bots",
   "version": "0.0.0",
   "engines": {
     "node": "latest",
