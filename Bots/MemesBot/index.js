@@ -128,7 +128,7 @@ client.on('message', function(message) {
             embed = new Discord.RichEmbed({
                 "title": "Server Info",
                 "description": `Owner: ${Guild.owner.displayName} n\n Main Chat: ${Guild.defaultChannel} \n\n Region: ${Guild.region} \n\n Channels: ${Guild.channels.size} \n\n Members: ${Guild.memberCount} \n\n Default Role: ${Guild.defaultRole} \n\n Verification Level: ${Guild.verificationLevel} \n\n Created At: ${Guild.createdAt}`,
-                "color": '00ff00',
+                "color": '009900',
                 "footer": {
                     "text": "MemesBot"
                 }
@@ -139,12 +139,47 @@ client.on('message', function(message) {
             embed = new Discord.RichEmbed({
                 "title": "Commands",
                 "description": "serverinfo:\n Displays the server info. \n\n addrole:\n Adds a role to a user. \n\n setrole:\n Sets a user's role. \n\n createrole: \n Creates a new role. \n\n setnick: \n Sets a user's nick. \n\n help: \n Displays this message.",
-                "color": '00ff00',
+                "color": '009900',
                 "footer": {
                     "text": "MemesBot"
                 }
             });
             message.channel.send({"embed": embed});
+            break;
+        case "embed":
+            message.delete(0);
+            let desc = ""
+            for (var i = 1; i < args.length; i++) {
+                desc = desc + " " + args[i]
+            }
+            embed = new Discord.RichEmbed({
+                "title": args[0],
+                "description": desc,
+                "color": '009900',
+                "footer": {
+                    "text": "GeneralMemes"
+                }
+            })
+            break;
+        case "ban":
+            if (message.guild.member(message.author).hasPermission("BAN_MEMBERS", false, true, true)) {
+                message.guild.ban(message.guild.member(args[0]))
+                let reason = ""
+                for (var i = 2; i < args.length; i++) {
+                    reason = reason + " " + args[i];
+                }
+                embed = new Discord.RichEmbed({
+                    "title": "Ban",
+                    "description": "User " + message.guild.member(args[1]) + " has been banned for: \n" + reason + "!",
+                    "color": '990000',
+                    "footer": {
+                        "text": "MemesBot"
+                    }
+                })
+                message.channel.sendEmbed({
+                    "embed": embed
+                })
+            }
             break;
         default:
             message.reply("That is not a command");
