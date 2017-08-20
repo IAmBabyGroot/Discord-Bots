@@ -162,7 +162,7 @@ client.on('message', function(message) {
             message.delete(0);
             break;
         case "purge":
-            if (message.guild.member(message.author).hasPermission("MANAGE_MESSAGES", false, true, true) {
+            if (message.guild.member(message.author).hasPermission("MANAGE_MESSAGES", false, true, true)) {
                 let msgn = args[0];
                 message.channel.bulkDelete(msgn, true);
             }
