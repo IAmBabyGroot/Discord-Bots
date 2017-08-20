@@ -159,6 +159,9 @@ client.on('message', function(message) {
                     "text": "GeneralMemes"
                 }
             })
+            message.channel.send({
+                "embed": embed
+            })
             message.delete(0);
             break;
         case "purge":
