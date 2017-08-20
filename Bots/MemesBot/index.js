@@ -147,7 +147,6 @@ client.on('message', function(message) {
             message.channel.send({"embed": embed});
             break;
         case "embed":
-            message.delete(0);
             let desc = ""
             for (var i = 1; i < args.length; i++) {
                 desc = desc + " " + args[i]
@@ -160,26 +159,7 @@ client.on('message', function(message) {
                     "text": "GeneralMemes"
                 }
             })
-            break;
-        case "ban":
-            if (message.guild.member(message.author).hasPermission("BAN_MEMBERS", false, true, true)) {
-                message.guild.ban(message.guild.member(args[0]))
-                let reason = ""
-                for (var i = 2; i < args.length; i++) {
-                    reason = reason + " " + args[i];
-                }
-                embed = new Discord.RichEmbed({
-                    "title": "Ban",
-                    "description": "User " + message.guild.member(args[1]) + " has been banned for: \n" + reason + "!",
-                    "color": '990000',
-                    "footer": {
-                        "text": "MemesBot"
-                    }
-                })
-                message.channel.sendEmbed({
-                    "embed": embed
-                })
-            }
+            message.delete(0);
             break;
         default:
             message.reply("That is not a command");
