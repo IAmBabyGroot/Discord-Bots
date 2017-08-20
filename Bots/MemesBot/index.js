@@ -105,7 +105,7 @@ client.on('message', function(message) {
                 Member.addRole(newrole);
                 return;
             }
-            else if (message.guild.member(message.author).hasPermission("MANAGE_ROLES_OR", false, true, true)) {
+            else if (message.guild.member(message.author).hasPermission("MANAGE_ROLES", false, true, true)) {
                 Member = message.mentions.members.first();
                 var newRole = args.slice(1).join(" ");
                 Guild = message.guild;
@@ -161,6 +161,11 @@ client.on('message', function(message) {
             })
             message.delete(0);
             break;
+        case "purge":
+            if (message.guild.member(message.author).hasPermission("MANAGE_MESSAGES", false, true, true) {
+                let msgn = args[0];
+                message.channel.bulkDelete(msgn, true);
+            }
         default:
             message.reply("That is not a command");
     }
