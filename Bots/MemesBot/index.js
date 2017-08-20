@@ -166,6 +166,7 @@ client.on('message', function(message) {
                 let msgn = args[0];
                 message.channel.bulkDelete(msgn, true);
             }
+        break;
         default:
             message.reply("That is not a command");
     }
