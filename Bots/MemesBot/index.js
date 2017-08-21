@@ -156,7 +156,7 @@ client.on('message', function(message) {
                 "description": desc,
                 "color": '009900',
                 "footer": {
-                    "text": "GeneralMemes"
+                    "text": message.author.username
                 }
             })
             message.channel.send({
