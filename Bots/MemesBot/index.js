@@ -25,21 +25,75 @@ client.on('guildCreate', guild => {
 client.on('guildMemberAdd', function(member) {
     let Guild = member.guild;
     Guild.defaultChannel.send(`Welcome ${member.user.username} to ${Guild.name}!`);
+    if (message.guild.channels.find("name", "server-log")) {
+        var serverLog = message.guild.channels.find("name", "server-log");
+        if (channel.type === "text") {
+            serverLog.send(`Member ${member.user.username} joined @ ${channel.createdAt}!`);
+        }
+    }
+    if (message.guild.channels.find("name", "mod-log")) {
+        var serverLog = message.guild.channels.find("name", "server-log");
+        if (channel.type === "text") {
+            serverLog.send(`Member ${member.user.username} joined @ ${channel.createdAt}!`);
+        }
+    }
 });
 
 client.on('guildMemberRemove', function(member) {
     let Guild = member.guild;
     Guild.defaultChannel.send(`Goodbye ${member.user.username}!`);
+    if (message.guild.channels.find("name", "server-log")) {
+        var serverLog = message.guild.channels.find("name", "server-log");
+        if (channel.type === "text") {
+            serverLog.send(`Member ${member.user.username} left @ ${channel.createdAt}!`);
+        }
+    }
+    if (message.guild.channels.find("name", "mod-log")) {
+        var serverLog = message.guild.channels.find("name", "server-log");
+        if (channel.type === "text") {
+            serverLog.send(`Member ${member.user.username} left @ ${channel.createdAt}!`);
+        }
+    }
 });
 
 client.on('channelCreate', function(channel) {
     console.log(`A ${channel.type} channel by the name of ${channel.name} was created @ ${channel.createdAt} on ${channel.guild}`);
-    if (channel.type === "text") {
-        channel.send(`You created #${channel.name} @ ${channel.createdAt}!`);
+    if (message.guild.channels.find("name", "server-log")) {
+        var serverLog = message.guild.channels.find("name", "server-log");
+        if (channel.type === "text") {
+            serverLog.send(`You created #${channel.name} @ ${channel.createdAt}!`);
+        }
+    }
+    if (message.guild.channels.find("name", "mod-log")) {
+        var serverLog = message.guild.channels.find("name", "server-log");
+        if (channel.type === "text") {
+            serverLog.send(`You created #${channel.name} @ ${channel.createdAt}!`);
+        }
     }
 });
+
+client.on('channelDelete', function(channel) {
+    console.log(`A ${channel.type} channel by the name of ${channel.name} was deleted @ ${channel.createdAt} on ${channel.guild}`);
+    if (message.guild.channels.find("name", "server-log")) {
+        var serverLog = message.guild.channels.find("name", "server-log");
+        if (channel.type === "text") {
+            serverLog.send(`You deleted #${channel.name} @ ${channel.createdAt}!`);
+        }
+    }
+    if (message.guild.channels.find("name", "mod-log")) {
+        var serverLog = message.guild.channels.find("name", "server-log");
+        if (channel.type === "text") {
+            serverLog.send(`You deleted #${channel.name} @ ${channel.createdAt}!`);
+        }
+    }
+});
+
 client.on('messageDelete', function(message) {
     if (message.guild.channels.find("name", "server-log")) {
+        var serverLog = message.guild.channels.find("name", "server-log");
+        serverLog.send(`${message.author.username} sent ${message} @ ${message.createdAt} in ${message.channel.name}`);
+    }
+    if (message.guild.channels.find("name", "mod-log")) {
         var serverLog = message.guild.channels.find("name", "server-log");
         serverLog.send(`${message.author.username} sent ${message} @ ${message.createdAt} in ${message.channel.name}`);
     }
