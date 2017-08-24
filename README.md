@@ -1,2 +1,2 @@
-# Discord-Bots
-All my Discord bots
+# MemesBot
+My First Discord Bot
