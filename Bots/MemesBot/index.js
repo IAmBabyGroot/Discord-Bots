@@ -49,7 +49,7 @@ client.on('guildMemberRemove', function(member) {
         }
     }
     if (message.guild.channels.find("name", "mod-log")) {
-        var serverLog = message.guild.channels.find("name", "server-log");
+        var serverLog = message.guild.channels.find("name", "mod-log");
         if (channel.type === "text") {
             serverLog.send(`Member ${member.user.username} left @ ${channel.createdAt}!`);
         }
@@ -65,7 +65,7 @@ client.on('channelCreate', function(channel) {
         }
     }
     if (message.guild.channels.find("name", "mod-log")) {
-        var serverLog = message.guild.channels.find("name", "server-log");
+        var serverLog = message.guild.channels.find("name", "mod-log");
         if (channel.type === "text") {
             serverLog.send(`You created #${channel.name} @ ${channel.createdAt}!`);
         }
@@ -81,7 +81,7 @@ client.on('channelDelete', function(channel) {
         }
     }
     if (message.guild.channels.find("name", "mod-log")) {
-        var serverLog = message.guild.channels.find("name", "server-log");
+        var serverLog = message.guild.channels.find("name", "mod-log");
         if (channel.type === "text") {
             serverLog.send(`You deleted #${channel.name} @ ${channel.createdAt}!`);
         }
@@ -94,7 +94,7 @@ client.on('messageDelete', function(message) {
         serverLog.send(`${message.author.username} sent ${message} @ ${message.createdAt} in ${message.channel.name}`);
     }
     if (message.guild.channels.find("name", "mod-log")) {
-        var serverLog = message.guild.channels.find("name", "server-log");
+        var serverLog = message.guild.channels.find("name", "mod-log");
         serverLog.send(`${message.author.username} sent ${message} @ ${message.createdAt} in ${message.channel.name}`);
     }
 });
