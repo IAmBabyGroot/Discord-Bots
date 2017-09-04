@@ -224,8 +224,43 @@ client.on('message', function(message) {
                 message.channel.bulkDelete(msgn, true);
             }
         break;
+        case "play":
+            if (!args[0]) {
+                message.channel.send("Please provide a link")
+                return false;
+            }
+            if (!message.member.voiceChannel) {
+                message.channel.send("You are not in a voice channel!")
+                return false;
+            }
+            if (!servers[message.guild.id]) {
+                servers[message.guild.id] = {
+                    queue: []
+                }
+            }
+            var server = servers[message.guild.id]
+            server.queue.push(args[0])
+            if (!message.guild.voiceConnection) {
+                message.member.voiceChannel.join().then(function(connection){
+                    play(connection, message)
+                })
+            }
+        break;
+        case "skip":
+            var server = servers[message.guild.id]
+            if (server.dispatcher) {
+                server.dispatcher.end()
+            }
+        break;
+        case "stop":
+            var server = servers[message.guild.id]
+            if (message.guild.voiceConnection) {
+                message.guild.voiceConnection.disconnect()
+            }
+        break;
         default:
             message.reply("That is not a command");
+        break;
     }
 
 });
