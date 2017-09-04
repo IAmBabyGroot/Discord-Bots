@@ -13,16 +13,20 @@ var servers = []
 
 function play(connection, message) {
     var server = servers[message.guild.id]
-
+    console.log("Well")
     server.dispatcher = connection.playStream(ytdl(server.queue[0], {filter: 'audioonly'}))
-
+    console.log("This")
     server.queue.shift();
-
+    console.log("Should")
     server.dispatcher.on('end', function() {
         if (server.queue[0]) {
+            console.log("In")
             play(connection, message)
+            console.log("Theory")
         } else {
+            console.log("Work")
             connection.disconnect();
+            console.log("100%")
         }
     })
 }
@@ -257,16 +261,20 @@ client.on('message', function(message) {
                 message.channel.send("You are not in a voice channel!")
                 return false;
             }
+            console.log("Here")
             if (!servers[message.guild.id]) {
                 servers[message.guild.id] = {
                     queue: []
                 }
             }
+            console.log("Here Too")
             var server = servers[message.guild.id]
             server.queue.push(args[0])
+            console.log("And Here")
             if (!message.guild.voiceConnection) {
                 message.member.voiceChannel.join().then(function(connection) {
                     play(connection, message)
+                    console.log("Same Here")
                 })
             }
         break;
