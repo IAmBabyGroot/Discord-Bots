@@ -15,7 +15,10 @@ var servers = []
 function play(connection, message) {
     var server = servers[message.guild.id]
     console.log("Well")
-    server.dispatcher = connection.playStream(ytdl(server.queue[0], {filter: 'audioonly'}).pipe(fs.createWriteStream('video.flv')))
+    server.dispatcher = connection.playFile(
+        ytdl(server.queue[0], {filter: function(format) {
+        return format.container === 'mp3'
+    }}).pipe(fs.createWriteStream('video.mp3')))
     console.log("This")
     server.dispatcher.on('end', function() {
         server.queue.shift();
