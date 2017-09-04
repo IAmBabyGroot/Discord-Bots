@@ -16,7 +16,7 @@ const commands = {
 		queue[msg.guild.id].playing = true
 
 		console.log(queue)
-		(function play(song) {
+		function play(song) {
 			console.log(song)
 			if (song === undefined) return msg.channel.sendMessage('Queue is empty').then(() => {
 				queue[msg.guild.id].playing = false
@@ -54,7 +54,8 @@ const commands = {
 					play(queue[msg.guild.id].songs.shift())
 				})
 			})
-		})(queue[msg.guild.id].songs.shift())
+		}
+		queue[msg.guild.id].songs.shift()
 	},
 	'join': (msg) => {
 		return new Promise((resolve, reject) => {
