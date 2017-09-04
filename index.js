@@ -16,9 +16,9 @@ function play(connection, message) {
     console.log("Well")
     server.dispatcher = connection.playStream(ytdl(server.queue[0], {filter: 'audioonly'}))
     console.log("This")
-    server.queue.shift();
-    console.log("Should")
     server.dispatcher.on('end', function() {
+        server.queue.shift();
+        console.log("Should")
         if (server.queue[0]) {
             console.log("In")
             play(connection, message)
