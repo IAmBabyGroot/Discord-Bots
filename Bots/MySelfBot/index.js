@@ -59,7 +59,7 @@ client.on('message', function(message) {
         }
         break;
         case "play":
-        if (!args[0]) {
+        if (args.length == 0) {
             message.channel.send("Please provide a link")
             return false;
         }
