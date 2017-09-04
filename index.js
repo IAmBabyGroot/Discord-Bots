@@ -1,7 +1,5 @@
 const Discord = require('discord.js');
-const fs = require('fs')
 const ytdl = require('ytdl-core')
-const ffmpeg = require('ffmpeg')
 const opus = require('opusscript')
 const client = new Discord.Client();
 var embed;
