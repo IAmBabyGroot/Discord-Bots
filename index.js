@@ -1,6 +1,5 @@
 const Discord = require('discord.js');
 const ytdl = require('ytdl-core')
-const opus = require('opusscript')
 const client = new Discord.Client();
 var embed;
 var Member;
@@ -8,24 +7,6 @@ var Guild;
 var Guilds;
 
 const prefix = "mb."
-
-var servers = {}
-
-function play(connection, message) {
-    var server = servers[message.guild.id]
-
-    server.dispatcher = connection.playStream(ytdl(server.queue[0], {filter: 'audioonly'}))
-
-    server.queue.shift();
-
-    server.dispatcher.on('end', function() {
-        if (server.queue[0]) {
-            play(connection, message)
-        } else {
-            connection.disconnect();
-        }
-    })
-}
 
 client.on('ready', function() {
     console.log("Ready");
@@ -242,40 +223,6 @@ client.on('message', function(message) {
             if (message.guild.member(message.author).hasPermission("MANAGE_MESSAGES", false, true, true)) {
                 let msgn = args[0];
                 message.channel.bulkDelete(msgn, true);
-            }
-        break;
-        case "play":
-            if (!args[0]) {
-                message.channel.send("Please provide a link")
-                return false;
-            }
-            if (!message.member.voiceChannel) {
-                message.channel.send("You are not in a voice channel!")
-                return false;
-            }
-            if (!servers[message.guild.id]) {
-                servers[message.guild.id] = {
-                    queue: []
-                }
-            }
-            var server = servers[message.guild.id]
-            server.queue.push(args[0])
-            if (!message.guild.voiceConnection) {
-                message.member.voiceChannel.join().then(function(connection){
-                    play(connection, message)
-                })
-            }
-        break;
-        case "skip":
-            var server = servers[message.guild.id]
-            if (server.dispatcher) {
-                server.dispatcher.end()
-            }
-        break;
-        case "stop":
-            var server = servers[message.guild.id]
-            if (message.guild.voiceConnection) {
-                message.guild.voiceConnection.disconnect()
             }
         break;
         default:

@@ -10,10 +10,9 @@ client.on('ready', function() {
 })
 
 client.on('message', function(message) {
+    if (message.author.id !== client.user.id) return;
     if (message.content.indexOf(prefix) !== 0) return;
-    if (message.author !== client.user) return;
-    console.log(message.author.username + message.content)
-    const args = message.content.split(/\s + /g)
+    const args = message.content.split(/\s+/g);
     const command = args.shift().slice(prefix.length).toLowerCase();
     switch (command) {
         case "game":
@@ -39,9 +38,6 @@ client.on('message', function(message) {
         break;
         case "help":
             message.channel.send("Commands: \n\nHelp\nStatus\nGame\n\nEnd")
-        break;
-        default:
-            message.channel.send("That is not a command")
         break;
     }
 })
