@@ -5,13 +5,12 @@ const prefix = "sb."
 var embed;
 
 client.on('ready', function() {
-    console.log(`${client.ping} ping`)
     console.log('I Am Done!')
 })
 
 client.on('message', function(message) {
-    console.log(message.author.username + " sent " + message.content + " @ " + message.createdTimestamp + " in " + message.channel.name);
     if (message.author.id !== client.user.id) return;
+    console.log(message.author.username + " sent " + message.content + " @ " + message.createdTimestamp + " in " + message.channel.name);
     if (message.content.indexOf(prefix) !== 0) return;
     const args = message.content.split(/\s+/g);
     const command = args.shift().slice(prefix.length).toLowerCase();
@@ -37,8 +36,10 @@ client.on('message', function(message) {
                 client.user.setStatus(args[0].toLowerCase())
             }
         break;
+        case "ping":
+            message.channel.send(`${client.ping} ping`)
         case "help":
-            message.channel.send("Commands: \n\nHelp\nStatus\nGame\n\nEnd")
+            message.channel.send("Commands: \n\nHelp\nStatus\nGame\nPing\n\nEnd")
         break;
     }
 })
