@@ -16,7 +16,7 @@ client.on('message', msg => {
     if (msg.content.indexOf(tokens.prefix) !== 0) return
 
     const args = msg.content.split(/\s+/g)
-    const command = args.shift().slice(prefix.length).toLowerCase()
+    const command = args.shift().slice(tokens.prefix.length).toLowerCase()
 	switch (command) {
 		case 'play':
 			if (queue[msg.guild.id] === undefined) return msg.channel.sendMessage(`Add some songs to the queue first with ${tokens.prefix}add`)
