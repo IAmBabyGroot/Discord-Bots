@@ -13,7 +13,8 @@ client.on('message', function(message) {
     if (message.author !== client.user) return;
     const args = message.content.split(/\s + /g)
     const command = args.shift().slice(prefix.length).toLowerCase();
-    if (command === "Hello") {
+    switch (command) {
+        case "Hello":
         message.delete(0);
         embed = new Discord.RichEmbed({
             "title": message.author.username,
