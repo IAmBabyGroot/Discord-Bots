@@ -8,23 +8,7 @@ const prefix = "sb."
 
 var embed;
 
-var servers = []
-
-function play(connection, message) {
-    var server = servers[message.guild.id]
-
-    server.dispatcher = connection.playStream(ytdl(server.queue[0], {filter: 'audioonly'}))
-
-    server.queue.shift();
-
-    server.dispatcher.on('end', function() {
-        if (server.queue[0]) {
-            play(connection, message)
-        } else {
-            connection.disconnect();
-        }
-    })
-}
+var queue = []
 
 client.on('ready', function() {
     console.log(`${client.ping} ping`)
@@ -67,24 +51,10 @@ client.on('message', function(message) {
             message.channel.send("You are not in a voice channel!")
             return false;
         }
-        if (!servers[message.guild.id]) {
-            servers[message.guild.id] = {
-                queue: []
-            }
-        }
         var server = servers[message.guild.id]
-        server.queue.push(args[0])
-        if (!message.guild.voiceConnection) {
-            message.member.voiceChannel.join().then(function(connection){
-                play(connection, message)
-            })
-        }
-        break;
-        case "skip":
-        var server = servers[message.guild.id]
-        if (server.dispatcher) {
-            server.dispatcher.end()
-        }
+        message.member.voiceChannel.join().then(function(connection){
+            connection.playStream(ytdl(args[0], {filter: 'audioonly'}))
+        })
         break;
         case "stop":
         var server = servers[message.guild.id]
