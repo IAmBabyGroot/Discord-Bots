@@ -93,6 +93,7 @@ client.on('message', function(message) {
         break;
         default:
         message.channel.send("That is not a command")
+        break;
     }
 })
 
