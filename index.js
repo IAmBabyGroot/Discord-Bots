@@ -25,15 +25,16 @@ client.on('guildCreate', guild => {
 
 client.on('guildMemberAdd', function(member) {
     let Guild = member.guild;
+    let message = member.lastMessage;
     Guild.defaultChannel.send(`Welcome ${member.user.username} to ${Guild.name}!`);
-    if (message.guild.channels.find("name", "server-log")) {
-        var serverLog = message.guild.channels.find("name", "server-log");
+    if (Guild.channels.find("name", "server-log")) {
+        var serverLog = Guild.channels.find("name", "server-log");
         if (channel.type === "text") {
             serverLog.send(`Member ${member.user.username} joined @ ${channel.createdAt}!`);
         }
     }
-    if (message.guild.channels.find("name", "mod-log")) {
-        var serverLog = message.guild.channels.find("name", "server-log");
+    if (Guild.channels.find("name", "mod-log")) {
+        var serverLog = Guild.channels.find("name", "server-log");
         if (channel.type === "text") {
             serverLog.send(`Member ${member.user.username} joined @ ${channel.createdAt}!`);
         }
@@ -43,21 +44,27 @@ client.on('guildMemberAdd', function(member) {
 client.on('guildMemberRemove', function(member) {
     let Guild = member.guild;
     Guild.defaultChannel.send(`Goodbye ${member.user.username}!`);
-    if (message.guild.channels.find("name", "server-log")) {
-        var serverLog = message.guild.channels.find("name", "server-log");
+    if (Guild.channels.find("name", "server-log")) {
+        var serverLog = Guild.channels.find("name", "server-log");
         if (channel.type === "text") {
             serverLog.send(`Member ${member.user.username} left @ ${channel.createdAt}!`);
         }
     }
-    if (message.guild.channels.find("name", "mod-log")) {
-        var serverLog = message.guild.channels.find("name", "mod-log");
+    if (Guild.channels.find("name", "mod-log")) {
+        var serverLog = Guild.channels.find("name", "mod-log");
         if (channel.type === "text") {
             serverLog.send(`Member ${member.user.username} left @ ${channel.createdAt}!`);
         }
     }
 });
-
+/*
 client.on('channelCreate', function(channel) {
+    let channels = client.guilds.get(channel).channels;
+    for (var i = 0; i < channels.size(); i++) {
+        if () {
+
+        }
+    }
     console.log(`A ${channel.type} channel by the name of ${channel.name} was created @ ${channel.createdAt} on ${channel.guild}`);
     if (message.guild.channels.find("name", "server-log")) {
         var serverLog = message.guild.channels.find("name", "server-log");
@@ -88,7 +95,7 @@ client.on('channelDelete', function(channel) {
         }
     }
 });
-
+*/
 client.on('messageDelete', function(message) {
     if (message.guild.channels.find("name", "server-log")) {
         var serverLog = message.guild.channels.find("name", "server-log");
@@ -240,6 +247,10 @@ startAll()
 
 async function startAll () {
   await startNodemon('Bots/Eval/main.js')
+    .catch(function (reason) {
+      console.error(reason)
+    })
+  await startNodemon('Bots/MySelfBot/index.js')
     .catch(function (reason) {
       console.error(reason)
     })
