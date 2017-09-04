@@ -1,5 +1,4 @@
 const Discord = require('discord.js');
-const fs = require('fs')
 const ytdl = require('ytdl-core')
 const opus = require('opusscript')
 const client = new Discord.Client();
@@ -10,27 +9,20 @@ var Guilds;
 
 const prefix = "mb."
 
-var servers = []
+var servers = {}
 
 function play(connection, message) {
     var server = servers[message.guild.id]
-    console.log("Well")
-    server.dispatcher = connection.playFile(
-        ytdl(server.queue[0], {filter: function(format) {
-        return format.container === 'mp3'
-    }}).pipe(fs.createWriteStream('video.mp3')))
-    console.log("This")
+
+    server.dispatcher = connection.playStream(ytdl(server.queue[0], {filter: 'audioonly'}))
+
+    server.queue.shift();
+
     server.dispatcher.on('end', function() {
-        server.queue.shift();
-        console.log("Should")
         if (server.queue[0]) {
-            console.log("In")
             play(connection, message)
-            console.log("Theory")
         } else {
-            console.log("Work")
             connection.disconnect();
-            console.log("100%")
         }
     })
 }
@@ -253,10 +245,6 @@ client.on('message', function(message) {
             }
         break;
         case "play":
-            console.log(args.length)
-            for (var i = 0; i < args.length; i++) {
-                console.log("args[" + i + "]: " + args[i])
-            }
             if (!args[0]) {
                 message.channel.send("Please provide a link")
                 return false;
@@ -265,20 +253,18 @@ client.on('message', function(message) {
                 message.channel.send("You are not in a voice channel!")
                 return false;
             }
-            console.log("Here")
             if (!servers[message.guild.id]) {
                 servers[message.guild.id] = {
                     queue: []
                 }
             }
-            console.log("Here Too")
             var server = servers[message.guild.id]
             server.queue.push(args[0])
-            console.log("And Here")
-            message.member.voiceChannel.join().then(function(connection) {
-                play(connection, message)
-                console.log("Same Here")
-            })
+            if (!message.guild.voiceConnection) {
+                message.member.voiceChannel.join().then(function(connection){
+                    play(connection, message)
+                })
+            }
         break;
         case "skip":
             var server = servers[message.guild.id]
