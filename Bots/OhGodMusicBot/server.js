@@ -88,11 +88,11 @@ const commands = {
 };
 
 client.on('ready', () => {
-	console.log('Music Self Bot Is Go!');
+	console.log('Music Bot Is Go!');
 });
 
 client.on('message', msg => {
 	if (!msg.content.startsWith(tokens.prefix)) return;
 	if (commands.hasOwnProperty(msg.content.toLowerCase().slice(tokens.prefix.length).split(' ')[0])) commands[msg.content.toLowerCase().slice(tokens.prefix.length).split(' ')[0]](msg);
 });
-client.login(process.env.selfbot_token);
+client.login(process.env.memes_bot);

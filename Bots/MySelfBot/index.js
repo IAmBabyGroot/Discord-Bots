@@ -10,6 +10,7 @@ client.on('ready', function() {
 })
 
 client.on('message', function(message) {
+    console.log(message.author.username + " sent " + message.content + " @ " + message.createdTimestamp + " in " + message.channel.name);
     if (message.author.id !== client.user.id) return;
     if (message.content.indexOf(prefix) !== 0) return;
     const args = message.content.split(/\s+/g);
