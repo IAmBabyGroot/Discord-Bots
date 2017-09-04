@@ -51,7 +51,6 @@ client.on('message', function(message) {
             message.channel.send("You are not in a voice channel!")
             return false;
         }
-        var server = servers[message.guild.id]
         message.member.voiceChannel.join().then(function(connection){
             connection.playStream(ytdl(args[0], {filter: 'audioonly'}))
         })
