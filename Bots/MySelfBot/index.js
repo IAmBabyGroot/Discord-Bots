@@ -10,7 +10,7 @@ client.on('ready', function() {
 
 client.on('message', function(message) {
     if (message.author.id !== client.user.id) return;
-    console.log(message.author.username + " sent " + message.content + " @ " + message.createdTimestamp + " in " + message.channel.name);
+    console.log(message.author.username + " sent " + message.content + " @ " + message.createdAt + " in " + message.channel.name);
     if (message.content.indexOf(prefix) !== 0) return;
     const args = message.content.split(/\s+/g);
     const command = args.shift().slice(prefix.length).toLowerCase();
