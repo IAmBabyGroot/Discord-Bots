@@ -11,7 +11,7 @@ client.on('ready', function() {
 
 client.on('message', function(message) {
     if (message.author !== client.user) return;
-    console.log(message)
+    console.log(message.content)
     const args = message.content.split(/\s + /g)
     const command = args.shift().slice(prefix.length).toLowerCase();
     switch (command) {
