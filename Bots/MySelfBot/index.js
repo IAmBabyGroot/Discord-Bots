@@ -1,30 +1,8 @@
 const Discord = require('discord.js')
-const fs = require('fs')
-const ytdl = require('ytdl-core')
-const ffmpeg = require('ffmpeg')
-const opus = require('opusscript')
 const client = new Discord.Client()
 const prefix = "sb."
 
 var embed;
-
-var servers = []
-
-function play(connection, message) {
-    var server = servers[message.guild.id]
-
-    server.dispatcher = connection.playStream(ytdl(server.queue[0], {filter: 'audioonly'}))
-
-    server.queue.shift();
-
-    server.dispatcher.on('end', function() {
-        if (server.queue[0]) {
-            play(connection, message)
-        } else {
-            connection.disconnect();
-        }
-    })
-}
 
 client.on('ready', function() {
     console.log(`${client.ping} ping`)
@@ -58,6 +36,9 @@ client.on('message', function(message) {
             if ((args[0].toLowerCase() === "online") || (args[0].toLowerCase() === "idle") || (args[0].toLowerCase() === "dnd") || (args[0].toLowerCase() === "invisible")) {
                 client.user.setStatus(args[0].toLowerCase())
             }
+        break;
+        case "help":
+            message.channel.send("Commands: \n\nHelp\nStatus\nGame\n\nEnd")
         break;
         default:
             message.channel.send("That is not a command")
