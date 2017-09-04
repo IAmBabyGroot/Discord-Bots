@@ -271,7 +271,7 @@ client.on('message', function(message) {
             var server = servers[message.guild.id]
             server.queue.push(args[0])
             console.log("And Here")
-            if (!message.guild.voiceConnection) {
+            if (!client.voiceConnections.has(message.member.voiceChannel)) {
                 message.member.voiceChannel.join().then(function(connection) {
                     play(connection, message)
                     console.log("Same Here")
