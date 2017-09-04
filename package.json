@@ -19,7 +19,11 @@
   "dependencies": {
     "child-process": "^1.0.2",
     "discord.js": "^11.2.1",
+    "ffmpeg": "0.0.4",
     "foreman": "^2.0.0",
-    "nodemon": "^1.11.0"
+    "fs": "0.0.1-security",
+    "nodemon": "^1.11.0",
+    "opusscript": "0.0.3",
+    "ytdl-core": "^0.17.1"
   }
 }
