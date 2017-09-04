@@ -258,6 +258,10 @@ async function startAll () {
     .catch(function (reason) {
       console.error(reason)
     })
+  await startPython('Bots/RedBot/red.py')
+    .catch(function (reason) {
+        console.log(reason)
+    })
 }
 
 async function startNodemon (input) {
@@ -284,7 +288,7 @@ async function startNodemon (input) {
 }
 
 async function startPython (input) {
-  const file = await child.spawn('nodemon', [input])
+  const file = await child.spawn('python', [input])
 
   file.stdout.on('data', (data) => {
     console.log(String(data))
