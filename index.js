@@ -1,4 +1,5 @@
 const Discord = require('discord.js');
+const fs = require('fs')
 const ytdl = require('ytdl-core')
 const opus = require('opusscript')
 const client = new Discord.Client();
@@ -14,7 +15,7 @@ var servers = []
 function play(connection, message) {
     var server = servers[message.guild.id]
     console.log("Well")
-    server.dispatcher = connection.playStream(ytdl(server.queue[0], {filter: 'audioonly'}))
+    server.dispatcher = connection.playStream(ytdl(server.queue[0], {filter: 'audioonly'}).pipe(fs.createWriteStream('video.flv')))
     console.log("This")
     server.dispatcher.on('end', function() {
         server.queue.shift();
