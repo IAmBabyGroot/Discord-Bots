@@ -9,7 +9,6 @@ let tosend = []
 
 client.on('ready', function() {
 	console.log('Music Bot Is Go!')
-	console.log("Music Bot Is Go!")
 })
 
 client.on('message', msg => {
