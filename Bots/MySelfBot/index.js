@@ -15,7 +15,7 @@ client.on('message', function(message) {
     const args = message.content.split(/\s + /g)
     const command = args.shift().slice(prefix.length).toLowerCase();
     switch (command) {
-        case "Hello":
+        case "hello":
         message.delete(0);
         embed = new Discord.RichEmbed({
             "title": message.author.username,
