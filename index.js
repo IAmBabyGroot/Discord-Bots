@@ -245,6 +245,10 @@ client.on('message', function(message) {
             }
         break;
         case "play":
+            console.log(args.length)
+            for (var i = 0; i < args.length; i++) {
+                console.log(args[i])
+            }
             if (!args[0]) {
                 message.channel.send("Please provide a link")
                 return false;
