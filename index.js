@@ -254,7 +254,7 @@ async function startAll () {
     .catch(function (reason) {
       console.error(reason)
     })
-  await startNodemon('Bots/MySelfBot/index.js')
+  await startNodemon('Bots/OhGotMusicBot/server.js')
     .catch(function (reason) {
       console.error(reason)
     })
