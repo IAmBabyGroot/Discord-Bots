@@ -12,10 +12,10 @@ client.on('ready', function() {
 })
 
 client.on('message', msg => {
-	if (message.author.bot) return
-    if (message.content.indexOf(prefix) !== 0) return
+	if (msg.author.bot) return
+    if (msg.content.indexOf(tokens.prefix) !== 0) return
 
-    const args = message.content.split(/\s+/g)
+    const args = msg.content.split(/\s+/g)
     const command = args.shift().slice(prefix.length).toLowerCase()
 	switch (command) {
 		case 'play':
