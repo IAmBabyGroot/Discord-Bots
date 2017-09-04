@@ -32,6 +32,7 @@ client.on('ready', function() {
 })
 
 client.on('message', function(message) {
+    if (message.content.indexOf(prefix) !== 0) return;
     if (message.author !== client.user) return;
     console.log(message.author.username + message.content)
     const args = message.content.split(/\s + /g)
