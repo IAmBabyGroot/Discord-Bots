@@ -247,7 +247,7 @@ client.on('message', function(message) {
         case "play":
             console.log(args.length)
             for (var i = 0; i < args.length; i++) {
-                console.log(args[i])
+                console.log("args[" + i + "]: " + args[i])
             }
             if (!args[0]) {
                 message.channel.send("Please provide a link")
@@ -265,7 +265,7 @@ client.on('message', function(message) {
             var server = servers[message.guild.id]
             server.queue.push(args[0])
             if (!message.guild.voiceConnection) {
-                message.member.voiceChannel.join().then(function(connection){
+                message.member.voiceChannel.join().then(function(connection) {
                     play(connection, message)
                 })
             }
