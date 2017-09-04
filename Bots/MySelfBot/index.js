@@ -40,7 +40,7 @@ client.on('message', function(message) {
         case "game":
         if (args.length == 0) {
             message.channel.send("You must specify a game!")
-            break;
+            return false;
         }
         var game;
         for (var i = 0; i < args.length; i++) {
@@ -52,7 +52,7 @@ client.on('message', function(message) {
         case "status":
         if (args.length == 0 || args.length >= 2) {
             message.channel.send("You Must Only Specify A Status!")
-            break;
+            return false;
         }
         if ((args[0].toLowerCase() === "online") || (args[0].toLowerCase() === "idle") || (args[0].toLowerCase() === "dnd") || (args[0].toLowerCase() === "invisible")) {
             client.user.setStatus(args[0].toLowerCase())
@@ -61,10 +61,11 @@ client.on('message', function(message) {
         case "play":
         if (!args[0]) {
             message.channel.send("Please provide a link")
-            break;
+            return false;
         }
         if (!message.member.voiceChannel) {
             message.channel.send("You are not in a voice channel!")
+            return false;
         }
         if (!servers[message.guild.id]) {
             servers[message.guild.id] = {
@@ -90,9 +91,6 @@ client.on('message', function(message) {
         if (message.guild.voiceConnection) {
             message.guild.voiceConnection.disconnect()
         }
-        break;
-        default:
-        message.channel.send("That is not a command")
         break;
     }
 })
