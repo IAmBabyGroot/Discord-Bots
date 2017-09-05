@@ -1,3 +1,3 @@
-git add -f .
-git commit -am "New Commit"
-git push -f
+git add -fv .
+git commit -avm "New Commit"
+git push -fv

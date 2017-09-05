@@ -288,7 +288,7 @@ async function startNodemon (input) {
 }
 
 async function startPython (input) {
-  const file = await child.spawn('python', [input])
+  const file = await child.spawn('python3', [input])
 
   file.stdout.on('data', (data) => {
     console.log(String(data))
