@@ -1,192 +1,193 @@
-const Discord = require('discord.js');
+const Discord = require('discord.js')
 const ytdl = require('ytdl-core')
-const client = new Discord.Client();
-var embed;
-var Member;
-var Guild;
-var Guilds;
+const py = require('python-shell')
+const client = new Discord.Client()
+var embed
+var Member
+var Guild
+var Guilds
 
 const prefix = "mb."
 
 client.on('ready', function() {
-    console.log("Ready");
-    client.user.setGame("on " + client.guilds.size + " guild(s)");
-});
+    console.log("Ready")
+    client.user.setGame("on " + client.guilds.size + " guild(s)")
+})
 
 client.on('guildDelete', guild => {
-    console.log(`I have left ${guild.name} at ${new Date()}`);
-    client.user.setGame(`on ${client.guilds.size} guild(s)`);
-});
+    console.log(`I have left ${guild.name} at ${new Date()}`)
+    client.user.setGame(`on ${client.guilds.size} guild(s)`)
+})
 
 client.on('guildCreate', guild => {
-    guild.defaultChannel.send(`I have joined ${guild.name}`);
-    client.user.setGame(`on ${client.guilds.size} guild(s)`);
-});
+    guild.defaultChannel.send(`I have joined ${guild.name}`)
+    client.user.setGame(`on ${client.guilds.size} guild(s)`)
+})
 
 client.on('guildMemberAdd', function(member) {
-    let Guild = member.guild;
-    let message = member.lastMessage;
-    Guild.defaultChannel.send(`Welcome ${member.user.username} to ${Guild.name}!`);
+    let Guild = member.guild
+    let message = member.lastMessage
+    Guild.defaultChannel.send(`Welcome ${member.user.username} to ${Guild.name}!`)
     if (Guild.channels.find("name", "server-log")) {
-        var serverLog = Guild.channels.find("name", "server-log");
+        var serverLog = Guild.channels.find("name", "server-log")
         if (channel.type === "text") {
-            serverLog.send(`Member ${member.user.username} joined @ ${channel.createdAt}!`);
+            serverLog.send(`Member ${member.user.username} joined @ ${channel.createdAt}!`)
         }
     }
     if (Guild.channels.find("name", "mod-log")) {
-        var serverLog = Guild.channels.find("name", "server-log");
+        var serverLog = Guild.channels.find("name", "server-log")
         if (channel.type === "text") {
-            serverLog.send(`Member ${member.user.username} joined @ ${channel.createdAt}!`);
+            serverLog.send(`Member ${member.user.username} joined @ ${channel.createdAt}!`)
         }
     }
-});
+})
 
 client.on('guildMemberRemove', function(member) {
-    let Guild = member.guild;
-    Guild.defaultChannel.send(`Goodbye ${member.user.username}!`);
+    let Guild = member.guild
+    Guild.defaultChannel.send(`Goodbye ${member.user.username}!`)
     if (Guild.channels.find("name", "server-log")) {
-        var serverLog = Guild.channels.find("name", "server-log");
+        var serverLog = Guild.channels.find("name", "server-log")
         if (channel.type === "text") {
-            serverLog.send(`Member ${member.user.username} left @ ${channel.createdAt}!`);
+            serverLog.send(`Member ${member.user.username} left @ ${channel.createdAt}!`)
         }
     }
     if (Guild.channels.find("name", "mod-log")) {
-        var serverLog = Guild.channels.find("name", "mod-log");
+        var serverLog = Guild.channels.find("name", "mod-log")
         if (channel.type === "text") {
-            serverLog.send(`Member ${member.user.username} left @ ${channel.createdAt}!`);
+            serverLog.send(`Member ${member.user.username} left @ ${channel.createdAt}!`)
         }
     }
-});
+})
 /*
 client.on('channelCreate', function(channel) {
-    let channels = client.guilds.get(channel).channels;
-    for (var i = 0; i < channels.size(); i++) {
+    let channels = client.guilds.get(channel).channels
+    for (var i = 0 i < channels.size() i++) {
         if () {
 
         }
     }
-    console.log(`A ${channel.type} channel by the name of ${channel.name} was created @ ${channel.createdAt} on ${channel.guild}`);
+    console.log(`A ${channel.type} channel by the name of ${channel.name} was created @ ${channel.createdAt} on ${channel.guild}`)
     if (message.guild.channels.find("name", "server-log")) {
-        var serverLog = message.guild.channels.find("name", "server-log");
+        var serverLog = message.guild.channels.find("name", "server-log")
         if (channel.type === "text") {
-            serverLog.send(`You created #${channel.name} @ ${channel.createdAt}!`);
+            serverLog.send(`You created #${channel.name} @ ${channel.createdAt}!`)
         }
     }
     if (message.guild.channels.find("name", "mod-log")) {
-        var serverLog = message.guild.channels.find("name", "mod-log");
+        var serverLog = message.guild.channels.find("name", "mod-log")
         if (channel.type === "text") {
-            serverLog.send(`You created #${channel.name} @ ${channel.createdAt}!`);
+            serverLog.send(`You created #${channel.name} @ ${channel.createdAt}!`)
         }
     }
-});
+})
 
 client.on('channelDelete', function(channel) {
-    console.log(`A ${channel.type} channel by the name of ${channel.name} was deleted @ ${channel.createdAt} on ${channel.guild}`);
+    console.log(`A ${channel.type} channel by the name of ${channel.name} was deleted @ ${channel.createdAt} on ${channel.guild}`)
     if (message.guild.channels.find("name", "server-log")) {
-        var serverLog = message.guild.channels.find("name", "server-log");
+        var serverLog = message.guild.channels.find("name", "server-log")
         if (channel.type === "text") {
-            serverLog.send(`You deleted #${channel.name} @ ${channel.createdAt}!`);
+            serverLog.send(`You deleted #${channel.name} @ ${channel.createdAt}!`)
         }
     }
     if (message.guild.channels.find("name", "mod-log")) {
-        var serverLog = message.guild.channels.find("name", "mod-log");
+        var serverLog = message.guild.channels.find("name", "mod-log")
         if (channel.type === "text") {
-            serverLog.send(`You deleted #${channel.name} @ ${channel.createdAt}!`);
+            serverLog.send(`You deleted #${channel.name} @ ${channel.createdAt}!`)
         }
     }
-});
+})
 */
 client.on('messageDelete', function(message) {
     if (message.guild.channels.find("name", "server-log")) {
-        var serverLog = message.guild.channels.find("name", "server-log");
-        serverLog.send(`${message.author.username} sent ${message} @ ${message.createdAt} in ${message.channel.name}`);
+        var serverLog = message.guild.channels.find("name", "server-log")
+        serverLog.send(`${message.author.username} sent ${message} @ ${message.createdAt} in ${message.channel.name}`)
     }
     if (message.guild.channels.find("name", "mod-log")) {
-        var serverLog = message.guild.channels.find("name", "mod-log");
-        serverLog.send(`${message.author.username} sent ${message} @ ${message.createdAt} in ${message.channel.name}`);
+        var serverLog = message.guild.channels.find("name", "mod-log")
+        serverLog.send(`${message.author.username} sent ${message} @ ${message.createdAt} in ${message.channel.name}`)
     }
-});
+})
 
 client.on('message', function(message) {
-    if (message.author.bot) return;
-    if (message.content.indexOf(prefix) !== 0) return;
+    if (message.author.bot) return
+    if (message.content.indexOf(prefix) !== 0) return
 
     // This is the best way to define args. Trust me.
-    const args = message.content.split(/\s+/g);
-    const command = args.shift().slice(prefix.length).toLowerCase();
+    const args = message.content.split(/\s+/g)
+    const command = args.shift().slice(prefix.length).toLowerCase()
 
     switch (command) {
         case "setnick":
             if (message.guild.member(message.author).hasPermission("CHANGE_NICKNAME")) {
-            Member = message.mentions.members.first();
-                var newNick = args.slice(1).join(" ");
-                Member.setNickname(newNick);
-                message.channel.send(`${Member.user.tag}'s nick is now: ${newNick}`);
+            Member = message.mentions.members.first()
+                var newNick = args.slice(1).join(" ")
+                Member.setNickname(newNick)
+                message.channel.send(`${Member.user.tag}'s nick is now: ${newNick}`)
             } else {
-                message.reply("Error: You Do Not Have Enough Permission!");
+                message.reply("Error: You Do Not Have Enough Permission!")
             }
-            break;
+            break
         case "createrole":
             if (message.guild.member(message.author).hasPermission("MANAGE_ROLES")) {
-                Guild = message.guild;
+                Guild = message.guild
                 Guild.createRole({
                     "name": args[0],
                     "color": args[1],
                     "permissions": args[2]
-                });
+                })
             } else {
-                message.reply("Error: You Do Not Have Enough Permission!");
+                message.reply("Error: You Do Not Have Enough Permission!")
             }
-            break;
+            break
         case "setrole":
             if (message.guild.member(message.author).hasPermission("MANAGE_ROLES", false, true, true)) {
-                Member = message.mentions.members.first();
-                var newRole = args.slice(1).join(" ");
-                Guild = message.guild;
-                var newrole = Guild.roles.find("name", newRole);
+                Member = message.mentions.members.first()
+                var newRole = args.slice(1).join(" ")
+                Guild = message.guild
+                var newrole = Guild.roles.find("name", newRole)
                 if (message.guild.ownerID === message.author.id) {
                     
                 }
                 else if (Member.highestRole.position <= newrole.position) {
-                    message.channel.send("Error: You Can't Set A Role Higher Or Equal Than Your Own!");
-                    return;
+                    message.channel.send("Error: You Can't Set A Role Higher Or Equal Than Your Own!")
+                    return
                 }
-                Member.removeRoles(Member.roles);
-                Member.addRole(newrole);
-                message.channel.send(`${Member.user.tag} is now: ${newRole}`);
+                Member.removeRoles(Member.roles)
+                Member.addRole(newrole)
+                message.channel.send(`${Member.user.tag} is now: ${newRole}`)
             } else {
-                message.reply("Error: You Do Not Have Enough Permission!");
+                message.reply("Error: You Do Not Have Enough Permission!")
             }
-            break;
+            break
         case "addrole":
             if (message.author.id === 260470661732892672) {
-            	Member = message.mentions.members.first();
-                var newRole = args.slice(1).join(" ");
-                Guild = message.guild;
-                var newrole = Guild.roles.find("name", newRole); 
-                Member.addRole(newrole);
-                return;
+            	Member = message.mentions.members.first()
+                var newRole = args.slice(1).join(" ")
+                Guild = message.guild
+                var newrole = Guild.roles.find("name", newRole) 
+                Member.addRole(newrole)
+                return
             }
             else if (message.guild.member(message.author).hasPermission("MANAGE_ROLES", false, true, true)) {
-                Member = message.mentions.members.first();
-                var newRole = args.slice(1).join(" ");
-                Guild = message.guild;
-                var newrole = Guild.roles.find("name", newRole); 
+                Member = message.mentions.members.first()
+                var newRole = args.slice(1).join(" ")
+                Guild = message.guild
+                var newrole = Guild.roles.find("name", newRole) 
                 if (message.guild.ownerID === message.author.id) {
                     
                 }
                 else if (Member.highestRole.position <= newrole.position) {
-                    message.channel.send("Error: You Can't Set A Role Higher Or Equal Than Your Own!");
-                    return;
+                    message.channel.send("Error: You Can't Set A Role Higher Or Equal Than Your Own!")
+                    return
                 }
-                Member.addRole(newrole);
-                message.channel.send(`${Member.user.tag} has been given: ${newRole}`);
+                Member.addRole(newrole)
+                message.channel.send(`${Member.user.tag} has been given: ${newRole}`)
             } else {
-                message.reply("Error: You Do Not Have Enough Permission!");
+                message.reply("Error: You Do Not Have Enough Permission!")
             }
-            break;
+            break
         case "serverinfo":
-            Guild = message.guild;
+            Guild = message.guild
             embed = new Discord.RichEmbed({
                 "title": "Server Info",
                 "description": `Owner: ${Guild.owner.displayName} n\n Main Chat: ${Guild.defaultChannel} \n\n Region: ${Guild.region} \n\n Channels: ${Guild.channels.size} \n\n Members: ${Guild.memberCount} \n\n Default Role: ${Guild.defaultRole} \n\n Verification Level: ${Guild.verificationLevel} \n\n Created At: ${Guild.createdAt}`,
@@ -195,8 +196,8 @@ client.on('message', function(message) {
                     "text": "MemesBot"
                 }
             })
-            message.channel.send({"embed": embed});
-            break;
+            message.channel.send({"embed": embed})
+            break
         case "help":
             embed = new Discord.RichEmbed({
                 "title": "Commands",
@@ -205,9 +206,9 @@ client.on('message', function(message) {
                 "footer": {
                     "text": "MemesBot"
                 }
-            });
-            message.channel.send({"embed": embed});
-            break;
+            })
+            message.channel.send({"embed": embed})
+            break
         case "embed":
             let desc = ""
             for (var i = 1; i < args.length; i++) {
@@ -224,22 +225,28 @@ client.on('message', function(message) {
             message.channel.send({
                 "embed": embed
             })
-            message.delete(0);
-            break;
+            message.delete(0)
+            break
         case "purge":
             if (message.guild.member(message.author).hasPermission("MANAGE_MESSAGES", false, true, true)) {
-                let msgn = args[0];
-                message.channel.bulkDelete(msgn, true);
+                let msgn = args[0]
+                message.channel.bulkDelete(msgn, true)
             }
-        break;
+        break
         default:
-            message.reply("That is not a command");
-        break;
+            message.reply("That is not a command")
+        break
     }
 
-});
+})
 
-client.login(process.env.memes_bot);
+client.login(process.env.memes_bot)
+
+var options = {
+    mode: 'text',
+    pythonOptions: ['--start'],
+    scriptPath: 'Bots/RedBot/red.py'
+}
 
 const child = require('child_process')
 
@@ -258,10 +265,10 @@ async function startAll () {
     .catch(function (reason) {
       console.error(reason)
     })
-  await startPython('Bots/RedBot/red.py')
-    .catch(function (reason) {
-        console.log(reason)
-    })
+  py.run('red.py', options, function(err, results) {
+    if (err) throw err
+    console.log('results: %j', results)
+  })
 }
 
 async function startNodemon (input) {
@@ -284,21 +291,5 @@ async function startNodemon (input) {
           console.error(reason)
         })
     }, 1000 * 5)
-  })
-}
-
-async function startPython (input) {
-  const file = await child.spawn('python3', [input])
-
-  file.stdout.on('data', (data) => {
-    console.log(String(data))
-  })
-
-  file.stderr.on('data', (data) => {
-    console.error(String(data))
-  })
-
-  file.on('close', (code) => {
-    console.log('child process exited with code ' + code)
   })
 }
