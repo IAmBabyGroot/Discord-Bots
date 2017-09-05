@@ -279,7 +279,7 @@ async function startNodemon (input) {
     console.log('child process exited with code ' + code)
 
     setTimeout(function () {
-      start(input)
+      startNodemon(input)
         .catch(function (reason) {
           console.error(reason)
         })
@@ -300,12 +300,5 @@ async function startPython (input) {
 
   file.on('close', (code) => {
     console.log('child process exited with code ' + code)
-
-    setTimeout(function () {
-      start(input)
-        .catch(function (reason) {
-          console.error(reason)
-        })
-    }, 1000 * 5)
   })
 }
