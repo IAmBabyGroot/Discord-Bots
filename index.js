@@ -299,9 +299,10 @@ client.on('message', function(message) {
         break
         case "start":
             startSelfBots()
-            break;
+            break
         case "stop":
             stopSelfBot()
+            break
         default:
             message.reply("That is not a command")
         break

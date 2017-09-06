@@ -8,6 +8,10 @@ client.on('ready', function() {
     console.log('I Am Done!')
 })
 
+client.on("disconnect", function() {
+    console.log("Goodbye!")
+})
+
 client.on('message', function(message) {
     if (message.author.id !== client.user.id) return;
     console.log(message.author.username + " sent " + message.content + " @ " + message.createdAt + " in " + message.channel.name);
