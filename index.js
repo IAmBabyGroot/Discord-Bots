@@ -13,21 +13,6 @@ const child = require('child_process')
 
 startAll()
 
-while (enabled === true) {
-    if (selfBotEnabled === 'true') {
-        startSelfBots()
-    } else if (selfBotEnabled === 'false') {
-        selfBot.stdin.end()
-        selfBot.stdout.destroy()
-        selfBot.stderr.destroy()
-        setTimeout(function() {
-            selfBot.kill()
-        }, 500)
-    } else if (selfBotEnabled === 'loaded') {
-
-    }
-}
-
 async function startAll () {
   await startNodemon('Bots/Eval/main.js')
     .catch(function (reason) {
