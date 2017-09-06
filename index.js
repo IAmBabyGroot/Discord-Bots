@@ -96,12 +96,14 @@ async function startSelfBot (input) {
     }
 }
 
-async function toggleSelfBot () {
+async function toggleSelfBot (message) {
     if (selfBotEnabled === 'false') {
         selfBotEnabled = 'true'
+        message.reply("Enabled")
         startSelfBots()
     } else if (selfBotEnabled === 'loaded') {
         selfBotEnabled = 'false'
+        message.reply("Disabled")
     } else {
 
     }
@@ -337,8 +339,8 @@ client.on('message', function(message) {
                 message.channel.bulkDelete(msgn, true)
             }
         break
-        case "start":
-            toggleSelfBot()
+        case "selfbot":
+            toggleSelfBot(message)
             break
         default:
             message.reply("That is not a command")
