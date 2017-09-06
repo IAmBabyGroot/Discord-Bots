@@ -2,7 +2,7 @@ const Discord = require('discord.js')
 const ytdl = require('ytdl-core')
 const py = require('python-shell')
 const client = new Discord.Client()
-var selfBot
+var selfBotEnabled = true;
 var embed
 var Member
 var Guild
@@ -56,7 +56,7 @@ async function startNodemon (input) {
 }
 
 async function startSelfBot (input) {
-  selfBot = await child.spawn('nodemon', [input])
+  var selfBot = await child.spawn('nodemon', [input])
     
   selfBot.stdout.on('data', (data) => {
     console.log(String(data))
@@ -65,10 +65,28 @@ async function startSelfBot (input) {
   selfBot.stderr.on('data', (data) => {
     console.error(String(data))
   })
+  while (enabled === true) {
+    if (selfBotEnabled === true) {
+        
+    } else {
+        selfBot.stdin.end()
+        selfBot.stdout.destroy()
+        selfBot.stderr.destroy()
+        setTimeout(function() {
+            selfBot.kill()
+        }, 500)
+    }
+  }
 }
 
-async function stopSelfBot () {
-  selfBot.disconnect();
+async function toggleSelfBot () {
+    if (selfBotEnabled === false) {
+        selfBotEnabled = true
+    } else if (selfBotEnabled === true) {
+        selfBotEnabled = false;
+    } else {
+        console.log(`Error: selfBotEnabled is not a boolean: ${selfBotEnabled}`)
+    }
 }
 
 const prefix = "mb."
@@ -174,6 +192,9 @@ client.on('messageDelete', function(message) {
 
 client.on('message', function(message) {
     if (message.author.bot) return
+    if (message.content.toLowerCase() === "sb.stop") {
+        selfBotEnabled = false;
+    }
     if (message.content.indexOf(prefix) !== 0) return
 
     // This is the best way to define args. Trust me.
@@ -298,10 +319,7 @@ client.on('message', function(message) {
             }
         break
         case "start":
-            startSelfBots()
-            break
-        case "stop":
-            stopSelfBot()
+            toggleSelfBot()
             break
         default:
             message.reply("That is not a command")
