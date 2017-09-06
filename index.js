@@ -2,7 +2,7 @@ const Discord = require('discord.js')
 const ytdl = require('ytdl-core')
 const py = require('python-shell')
 const client = new Discord.Client()
-var selfBotEnabled = true;
+var selfBotEnabled = 'true';
 var enabled = false;
 var embed
 var Member
@@ -97,11 +97,11 @@ async function startSelfBot (input) {
 }
 
 async function toggleSelfBot () {
-    if (selfBotEnabled === false) {
-        selfBotEnabled = true
+    if (selfBotEnabled === 'false') {
+        selfBotEnabled = 'true'
         startSelfBots()
-    } else if (selfBotEnabled === true) {
-        selfBotEnabled = false
+    } else if (selfBotEnabled === 'loaded') {
+        selfBotEnabled = 'false'
     } else {
 
     }
