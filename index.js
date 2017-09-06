@@ -2,7 +2,7 @@ const Discord = require('discord.js')
 const ytdl = require('ytdl-core')
 const py = require('python-shell')
 const client = new Discord.Client()
-var selfBot = await child.spawn('nodemon', [input])
+var selfBot
 var embed
 var Member
 var Guild
@@ -293,6 +293,8 @@ async function startNodemon (input) {
 }
 
 async function startSelfBot (input) {
+  selfBot = await child.spawn('nodemon', [input])
+    
   selfBot.stdout.on('data', (data) => {
     console.log(String(data))
   })
