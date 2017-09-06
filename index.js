@@ -82,8 +82,9 @@ async function startSelfBot (input) {
 async function toggleSelfBot () {
     if (selfBotEnabled === false) {
         selfBotEnabled = true
+        startSelfBots()
     } else if (selfBotEnabled === true) {
-        selfBotEnabled = false;
+        selfBotEnabled = false
     } else {
         console.log(`Error: selfBotEnabled is not a boolean: ${selfBotEnabled}`)
     }
