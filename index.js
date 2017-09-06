@@ -58,6 +58,8 @@ async function startNodemon (input) {
 async function startSelfBot (input) {
     var selfBot = await child.spawn('nodemon', [input])
 
+    selfBotEnabled = 'loaded'
+
     selfBot.stdout.on('data', (data) => {
     console.log(String(data))
     })
