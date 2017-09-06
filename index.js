@@ -2,8 +2,8 @@ const Discord = require('discord.js')
 const ytdl = require('ytdl-core')
 const py = require('python-shell')
 const client = new Discord.Client()
-var selfBotEnabled = 'true';
-var enabled = false;
+var selfBotEnabled = 'false';
+var enabled = true;
 var embed
 var Member
 var Guild
