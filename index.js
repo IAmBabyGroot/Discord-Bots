@@ -235,7 +235,7 @@ client.on('message', function(message) {
             }
         break
         case "start":
-            await start('Bots/MySelfBot/index.js')
+            await startSelfBot('Bots/MySelfBot/index.js')
                 .catch(function (reason) {
                 console.error(reason)
             })
