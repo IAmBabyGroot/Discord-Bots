@@ -96,7 +96,7 @@ async function startSelfBot (input) {
     }
 }
 
-async function toggleSelfBot (message) {
+function toggleSelfBot (message) {
     if (selfBotEnabled === 'false') {
         selfBotEnabled = 'true'
         message.reply("Enabled")
