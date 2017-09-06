@@ -65,17 +65,17 @@ async function startSelfBot (input) {
     selfBot.stderr.on('data', (data) => {
     console.error(String(data))
     })
-    while (enabled === true) {
-        if (selfBotEnabled === 'true') {
+    while (enabled == true) {
+        if (selfBotEnabled == 'true') {
             
-        } else if (selfBotEnabled === 'false') {
+        } else if (selfBotEnabled == 'false') {
             selfBot.stdin.end()
             selfBot.stdout.destroy()
             selfBot.stderr.destroy()
             setTimeout(function() {
                 selfBot.kill()
             }, 500)
-        } else if (selfBotEnabled === 'loaded') {
+        } else if (selfBotEnabled == 'loaded') {
 
         }
     }
@@ -105,13 +105,13 @@ client.on('guildMemberAdd', function(member) {
     Guild.defaultChannel.send(`Welcome ${member.user.username} to ${Guild.name}!`)
     if (Guild.channels.find("name", "server-log")) {
         var serverLog = Guild.channels.find("name", "server-log")
-        if (channel.type === "text") {
+        if (channel.type == "text") {
             serverLog.send(`Member ${member.user.username} joined @ ${channel.createdAt}!`)
         }
     }
     if (Guild.channels.find("name", "mod-log")) {
         var serverLog = Guild.channels.find("name", "server-log")
-        if (channel.type === "text") {
+        if (channel.type == "text") {
             serverLog.send(`Member ${member.user.username} joined @ ${channel.createdAt}!`)
         }
     }
@@ -122,13 +122,13 @@ client.on('guildMemberRemove', function(member) {
     Guild.defaultChannel.send(`Goodbye ${member.user.username}!`)
     if (Guild.channels.find("name", "server-log")) {
         var serverLog = Guild.channels.find("name", "server-log")
-        if (channel.type === "text") {
+        if (channel.type == "text") {
             serverLog.send(`Member ${member.user.username} left @ ${channel.createdAt}!`)
         }
     }
     if (Guild.channels.find("name", "mod-log")) {
         var serverLog = Guild.channels.find("name", "mod-log")
-        if (channel.type === "text") {
+        if (channel.type == "text") {
             serverLog.send(`Member ${member.user.username} left @ ${channel.createdAt}!`)
         }
     }
@@ -144,13 +144,13 @@ client.on('channelCreate', function(channel) {
     console.log(`A ${channel.type} channel by the name of ${channel.name} was created @ ${channel.createdAt} on ${channel.guild}`)
     if (message.guild.channels.find("name", "server-log")) {
         var serverLog = message.guild.channels.find("name", "server-log")
-        if (channel.type === "text") {
+        if (channel.type == "text") {
             serverLog.send(`You created #${channel.name} @ ${channel.createdAt}!`)
         }
     }
     if (message.guild.channels.find("name", "mod-log")) {
         var serverLog = message.guild.channels.find("name", "mod-log")
-        if (channel.type === "text") {
+        if (channel.type == "text") {
             serverLog.send(`You created #${channel.name} @ ${channel.createdAt}!`)
         }
     }
@@ -160,13 +160,13 @@ client.on('channelDelete', function(channel) {
     console.log(`A ${channel.type} channel by the name of ${channel.name} was deleted @ ${channel.createdAt} on ${channel.guild}`)
     if (message.guild.channels.find("name", "server-log")) {
         var serverLog = message.guild.channels.find("name", "server-log")
-        if (channel.type === "text") {
+        if (channel.type == "text") {
             serverLog.send(`You deleted #${channel.name} @ ${channel.createdAt}!`)
         }
     }
     if (message.guild.channels.find("name", "mod-log")) {
         var serverLog = message.guild.channels.find("name", "mod-log")
-        if (channel.type === "text") {
+        if (channel.type == "text") {
             serverLog.send(`You deleted #${channel.name} @ ${channel.createdAt}!`)
         }
     }
@@ -185,7 +185,7 @@ client.on('messageDelete', function(message) {
 
 client.on('message', function(message) {
     if (message.author.bot) return
-    if (message.content.toLowerCase() === "sb.stop") {
+    if (message.content.toLowerCase() == "sb.stop") {
         selfBotEnabled = false;
     }
     if (message.content.indexOf(prefix) !== 0) return
@@ -223,7 +223,7 @@ client.on('message', function(message) {
                 var newRole = args.slice(1).join(" ")
                 Guild = message.guild
                 var newrole = Guild.roles.find("name", newRole)
-                if (message.guild.ownerID === message.author.id) {
+                if (message.guild.ownerID == message.author.id) {
                     
                 }
                 else if (Member.highestRole.position <= newrole.position) {
@@ -238,7 +238,7 @@ client.on('message', function(message) {
             }
             break
         case "addrole":
-            if (message.author.id === 260470661732892672) {
+            if (message.author.id == 260470661732892672) {
             	Member = message.mentions.members.first()
                 var newRole = args.slice(1).join(" ")
                 Guild = message.guild
@@ -251,7 +251,7 @@ client.on('message', function(message) {
                 var newRole = args.slice(1).join(" ")
                 Guild = message.guild
                 var newrole = Guild.roles.find("name", newRole) 
-                if (message.guild.ownerID === message.author.id) {
+                if (message.guild.ownerID == message.author.id) {
                     
                 }
                 else if (Member.highestRole.position <= newrole.position) {
@@ -312,13 +312,13 @@ client.on('message', function(message) {
             }
         break
         case "selfbot":
-            if (selfBotEnabled === 'false') {
+            if (selfBotEnabled == 'false') {
                 selfBotEnabled = 'true'
                 message.reply("Enabled")
                 startSelfBots().catch(function (err) {
                     console.log(err)
                 })
-            } else if (selfBotEnabled === 'loaded') {
+            } else if (selfBotEnabled == 'loaded') {
                 selfBotEnabled = 'false'
                 message.reply("Disabled")
             }
