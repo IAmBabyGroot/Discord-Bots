@@ -96,19 +96,6 @@ async function startSelfBot (input) {
     }
 }
 
-function toggleSelfBot (message) {
-    if (selfBotEnabled === 'false') {
-        selfBotEnabled = 'true'
-        message.reply("Enabled")
-        startSelfBots()
-    } else if (selfBotEnabled === 'loaded') {
-        selfBotEnabled = 'false'
-        message.reply("Disabled")
-    } else {
-
-    }
-}
-
 const prefix = "mb."
 
 client.on('ready', function() {
@@ -340,7 +327,16 @@ client.on('message', function(message) {
             }
         break
         case "selfbot":
-            toggleSelfBot(message)
+            if (selfBotEnabled === 'false') {
+                selfBotEnabled = 'true'
+                message.reply("Enabled")
+                startSelfBots().catch(function (err) {
+                    console.log(err)
+                })
+            } else if (selfBotEnabled === 'loaded') {
+                selfBotEnabled = 'false'
+                message.reply("Disabled")
+            }
             break
         default:
             message.reply("That is not a command")
