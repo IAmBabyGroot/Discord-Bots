@@ -2,6 +2,7 @@ const Discord = require('discord.js')
 const ytdl = require('ytdl-core')
 const py = require('python-shell')
 const client = new Discord.Client()
+var selfBot = await child.spawn('nodemon', [input])
 var embed
 var Member
 var Guild
@@ -233,6 +234,14 @@ client.on('message', function(message) {
                 message.channel.bulkDelete(msgn, true)
             }
         break
+        case "start":
+            await start('Bots/MySelfBot/index.js')
+                .catch(function (reason) {
+                console.error(reason)
+            })
+            break;
+        case "stop":
+            selfBot.close()
         default:
             message.reply("That is not a command")
         break
@@ -242,11 +251,6 @@ client.on('message', function(message) {
 
 client.login(process.env.memes_bot)
 
-var options = {
-    mode: 'text',
-    pythonOptions: ['--start'],
-    scriptPath: 'Bots/RedBot/red.py'
-}
 
 const child = require('child_process')
 
@@ -257,18 +261,12 @@ async function startAll () {
     .catch(function (reason) {
       console.error(reason)
     })
-  await startNodemon('Bots/MySelfBot/index.js')
-    .catch(function (reason) {
-      console.error(reason)
-    })
+
   await startNodemon('Bots/OhGodMusicBot/server.js')
     .catch(function (reason) {
       console.error(reason)
     })
-  py.run('red.py', options, function(err, results) {
-    if (err) throw err
-    console.log('results: %j', results)
-  })
+
 }
 
 async function startNodemon (input) {
@@ -292,4 +290,16 @@ async function startNodemon (input) {
         })
     }, 1000 * 5)
   })
+}
+
+async function startSelfBot (input) {
+  selfBot.stdout.on('data', (data) => {
+    console.log(String(data))
+  })
+
+  selfBot.stderr.on('data', (data) => {
+    console.error(String(data))
+  })
+
+
 }
