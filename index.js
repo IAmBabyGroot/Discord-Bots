@@ -8,6 +8,60 @@ var Member
 var Guild
 var Guilds
 
+const child = require('child_process')
+
+startAll()
+
+async function startAll () {
+  await startNodemon('Bots/Eval/main.js')
+    .catch(function (reason) {
+      console.error(reason)
+    })
+
+  await startNodemon('Bots/OhGodMusicBot/server.js')
+    .catch(function (reason) {
+      console.error(reason)
+    })
+
+}
+
+async function startNodemon (input) {
+  const file = await child.spawn('nodemon', [input])
+
+  file.stdout.on('data', (data) => {
+    console.log(String(data))
+  })
+
+  file.stderr.on('data', (data) => {
+    console.error(String(data))
+  })
+
+  file.on('close', (code) => {
+    console.log('child process exited with code ' + code)
+
+    setTimeout(function () {
+      startNodemon(input)
+        .catch(function (reason) {
+          console.error(reason)
+        })
+    }, 1000 * 5)
+  })
+}
+
+async function startSelfBot (input) {
+  selfBot = await child.spawn('nodemon', [input])
+    
+  selfBot.stdout.on('data', (data) => {
+    console.log(String(data))
+  })
+
+  selfBot.stderr.on('data', (data) => {
+    console.error(String(data))
+  })
+
+
+}
+
 const prefix = "mb."
 
 client.on('ready', function() {
@@ -250,58 +304,3 @@ client.on('message', function(message) {
 })
 
 client.login(process.env.memes_bot)
-
-
-const child = require('child_process')
-
-startAll()
-
-async function startAll () {
-  await startNodemon('Bots/Eval/main.js')
-    .catch(function (reason) {
-      console.error(reason)
-    })
-
-  await startNodemon('Bots/OhGodMusicBot/server.js')
-    .catch(function (reason) {
-      console.error(reason)
-    })
-
-}
-
-async function startNodemon (input) {
-  const file = await child.spawn('nodemon', [input])
-
-  file.stdout.on('data', (data) => {
-    console.log(String(data))
-  })
-
-  file.stderr.on('data', (data) => {
-    console.error(String(data))
-  })
-
-  file.on('close', (code) => {
-    console.log('child process exited with code ' + code)
-
-    setTimeout(function () {
-      startNodemon(input)
-        .catch(function (reason) {
-          console.error(reason)
-        })
-    }, 1000 * 5)
-  })
-}
-
-async function startSelfBot (input) {
-  selfBot = await child.spawn('nodemon', [input])
-    
-  selfBot.stdout.on('data', (data) => {
-    console.log(String(data))
-  })
-
-  selfBot.stderr.on('data', (data) => {
-    console.error(String(data))
-  })
-
-
-}
