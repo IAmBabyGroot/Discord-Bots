@@ -3,6 +3,7 @@ const ytdl = require('ytdl-core')
 const py = require('python-shell')
 const client = new Discord.Client()
 var selfBotEnabled = true;
+var enabled = false;
 var embed
 var Member
 var Guild
@@ -11,6 +12,21 @@ var Guilds
 const child = require('child_process')
 
 startAll()
+
+while (enabled === true) {
+    if (selfBotEnabled === 'true') {
+        startSelfBots()
+    } else if (selfBotEnabled === 'false') {
+        selfBot.stdin.end()
+        selfBot.stdout.destroy()
+        selfBot.stderr.destroy()
+        setTimeout(function() {
+            selfBot.kill()
+        }, 500)
+    } else if (selfBotEnabled === 'loaded') {
+
+    }
+}
 
 async function startAll () {
   await startNodemon('Bots/Eval/main.js')
@@ -22,7 +38,6 @@ async function startAll () {
     .catch(function (reason) {
       console.error(reason)
     })
-
 }
 
 async function startSelfBots () {
@@ -33,50 +48,52 @@ async function startSelfBots () {
 }
 
 async function startNodemon (input) {
-  const file = await child.spawn('nodemon', [input])
+    const file = await child.spawn('nodemon', [input])
 
-  file.stdout.on('data', (data) => {
+    file.stdout.on('data', (data) => {
     console.log(String(data))
-  })
+    })
 
-  file.stderr.on('data', (data) => {
+    file.stderr.on('data', (data) => {
     console.error(String(data))
-  })
+    })
 
-  file.on('close', (code) => {
+    file.on('close', (code) => {
     console.log('child process exited with code ' + code)
 
     setTimeout(function () {
-      startNodemon(input)
+        startNodemon(input)
         .catch(function (reason) {
-          console.error(reason)
+            console.error(reason)
         })
     }, 1000 * 5)
-  })
+    })
 }
 
 async function startSelfBot (input) {
-  var selfBot = await child.spawn('nodemon', [input])
-    
-  selfBot.stdout.on('data', (data) => {
-    console.log(String(data))
-  })
+    var selfBot = await child.spawn('nodemon', [input])
 
-  selfBot.stderr.on('data', (data) => {
+    selfBot.stdout.on('data', (data) => {
+    console.log(String(data))
+    })
+
+    selfBot.stderr.on('data', (data) => {
     console.error(String(data))
-  })
-  while (enabled === true) {
-    if (selfBotEnabled === true) {
-        
-    } else {
-        selfBot.stdin.end()
-        selfBot.stdout.destroy()
-        selfBot.stderr.destroy()
-        setTimeout(function() {
-            selfBot.kill()
-        }, 500)
+    })
+    while (enabled === true) {
+        if (selfBotEnabled === 'true') {
+            
+        } else if (selfBotEnabled === 'false') {
+            selfBot.stdin.end()
+            selfBot.stdout.destroy()
+            selfBot.stderr.destroy()
+            setTimeout(function() {
+                selfBot.kill()
+            }, 500)
+        } else if (selfBotEnabled === 'loaded') {
+
+        }
     }
-  }
 }
 
 async function toggleSelfBot () {
@@ -86,7 +103,7 @@ async function toggleSelfBot () {
     } else if (selfBotEnabled === true) {
         selfBotEnabled = false
     } else {
-        console.log(`Error: selfBotEnabled is not a boolean: ${selfBotEnabled}`)
+
     }
 }
 
@@ -94,6 +111,7 @@ const prefix = "mb."
 
 client.on('ready', function() {
     console.log("Ready")
+    enabled = true;
     client.user.setGame("on " + client.guilds.size + " guild(s)")
 })
 
