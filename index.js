@@ -25,6 +25,13 @@ async function startAll () {
 
 }
 
+async function startSelfBots () {
+    await startSelfBot('Bots/MySelfBot/index.js')
+      .catch(function (reason) {
+          console.log(reason)
+      })
+}
+
 async function startNodemon (input) {
   const file = await child.spawn('nodemon', [input])
 
@@ -58,8 +65,10 @@ async function startSelfBot (input) {
   selfBot.stderr.on('data', (data) => {
     console.error(String(data))
   })
+}
 
-
+async function stopSelfBot () {
+  selfBot.disconnect();
 }
 
 const prefix = "mb."
@@ -289,13 +298,10 @@ client.on('message', function(message) {
             }
         break
         case "start":
-            await startSelfBot('Bots/MySelfBot/index.js')
-                .catch(function (reason) {
-                console.error(reason)
-            })
+            startSelfBots()
             break;
         case "stop":
-            selfBot.close()
+            stopSelfBot()
         default:
             message.reply("That is not a command")
         break
