@@ -323,6 +323,8 @@ client.on('message', function(message) {
             } else if (selfBotEnabled == 'loaded') {
                 selfBotEnabled = 'false'
                 message.reply("Disabled")
+            } else if (selfBotEnabled == 'true') {
+                message.reply("How??")
             }
             break
         default:
