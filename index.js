@@ -2,8 +2,6 @@ const Discord = require('discord.js')
 const ytdl = require('ytdl-core')
 const py = require('python-shell')
 const client = new Discord.Client()
-var selfBotEnabled = 'false';
-var enabled = true;
 var embed
 var Member
 var Guild
@@ -25,12 +23,7 @@ async function startAll () {
     })
 }
 
-async function startSelfBots () {
-    await startSelfBot('Bots/MySelfBot/index.js')
-      .catch(function (reason) {
-          console.log(reason)
-      })
-}
+
 
 async function startNodemon (input) {
     const file = await child.spawn('nodemon', [input])
@@ -55,39 +48,12 @@ async function startNodemon (input) {
     })
 }
 
-async function startSelfBot (input) {
-    var selfBot = await child.spawn('nodemon', [input])
 
-    selfBotEnabled = 'loaded'
-
-    selfBot.stdout.on('data', (data) => {
-    console.log(String(data))
-    })
-
-    selfBot.stderr.on('data', (data) => {
-    console.error(String(data))
-    })
-    while (enabled == true) {
-        if (selfBotEnabled == 'true') {
-            
-        } else if (selfBotEnabled == 'false') {
-            selfBot.stdin.end()
-            selfBot.stdout.destroy()
-            selfBot.stderr.destroy()
-            setTimeout(function() {
-                selfBot.kill()
-            }, 500)
-        } else if (selfBotEnabled == 'loaded') {
-
-        }
-    }
-}
 
 const prefix = "mb."
 
 client.on('ready', function() {
     console.log("Ready")
-    enabled = true;
     client.user.setGame("on " + client.guilds.size + " guild(s)")
 })
 
@@ -313,24 +279,6 @@ client.on('message', function(message) {
                 message.channel.bulkDelete(msgn, true)
             }
         break
-        case "selfbot":
-            if (selfBotEnabled == 'false') {
-                selfBotEnabled = 'true'
-                message.reply("Enabled")
-                startSelfBots()
-                return false
-            } else if (selfBotEnabled == 'loaded') {
-                selfBotEnabled = 'false'
-                message.reply("Disabled")
-                return false
-            } else if (selfBotEnabled == 'true') {
-                message.reply("How??")
-                return false
-            } else {
-              message.reply(selfBotEnabled)
-              return false
-            }
-            break
         default:
             message.reply("That is not a command")
         break
