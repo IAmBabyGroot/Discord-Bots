@@ -320,13 +320,17 @@ client.on('message', function(message) {
                 startSelfBots().catch(function (err) {
                     console.log(err)
                 })
+                return false
             } else if (selfBotEnabled == 'loaded') {
                 selfBotEnabled = 'false'
                 message.reply("Disabled")
+                return false
             } else if (selfBotEnabled == 'true') {
                 message.reply("How??")
+                return false
             } else {
               message.reply(selfBotEnabled)
+              return false
             }
             break
         default:
