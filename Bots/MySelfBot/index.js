@@ -42,6 +42,25 @@ client.on('message', function(message) {
         break;
         case "ping":
             message.channel.send(`${client.ping} ping`)
+        break
+        case "embed":
+            let desc = ""
+            for (var i = 1; i < args.length; i++) {
+                desc = desc + " " + args[i]
+            }
+            embed = new Discord.RichEmbed({
+                "title": args[0],
+                "description": desc,
+                "color": '009900',
+                "footer": {
+                    "text": message.author.username
+                }
+            })
+            message.channel.send({
+                "embed": embed
+            })
+            message.delete(0)
+        break
         case "help":
             message.channel.send("Commands: \n\nHelp\nStatus\nGame\nPing\n\nEnd")
         break;
