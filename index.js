@@ -325,6 +325,8 @@ client.on('message', function(message) {
                 message.reply("Disabled")
             } else if (selfBotEnabled == 'true') {
                 message.reply("How??")
+            } else {
+              message.reply(selfBotEnabled)
             }
             break
         default:
