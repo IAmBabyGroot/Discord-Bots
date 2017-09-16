@@ -317,9 +317,7 @@ client.on('message', function(message) {
             if (selfBotEnabled == 'false') {
                 selfBotEnabled = 'true'
                 message.reply("Enabled")
-                startSelfBots().catch(function (err) {
-                    console.log(err)
-                })
+                startSelfBots()
                 return false
             } else if (selfBotEnabled == 'loaded') {
                 selfBotEnabled = 'false'
