@@ -2,7 +2,49 @@ const Discord = require('discord.js')
 const yt = require('ytdl-core')
 const tokens = require('./tokens.json')
 
+var selfBotEnabled = 'false';
+var enabled = true;
+
 const client = new Discord.Client()
+
+async function startSelfBots () {
+    await startSelfBot('Bots/MySelfBot/index.js')
+      .catch(function (reason) {
+          console.log(reason)
+      })
+}
+
+while (enabled) {
+	if (selfBotEnabled == 'true') startSelfBots()
+}
+
+async function startSelfBot (input) {
+    var selfBot = await child.spawn('nodemon', [input])
+
+    selfBotEnabled = 'loaded'
+
+    selfBot.stdout.on('data', (data) => {
+    console.log(String(data))
+    })
+
+    selfBot.stderr.on('data', (data) => {
+    console.error(String(data))
+    })
+    while (enabled == true) {
+        if (selfBotEnabled == 'true') {
+            
+        } else if (selfBotEnabled == 'false') {
+            selfBot.stdin.end()
+            selfBot.stdout.destroy()
+            selfBot.stderr.destroy()
+            setTimeout(function() {
+                selfBot.kill()
+            }, 500)
+        } else if (selfBotEnabled == 'loaded') {
+
+        }
+    }
+}
 
 let queue = {}
 let tosend = []
@@ -86,11 +128,29 @@ const commands = {
 	},
 	'reboot': (msg) => {
 		if (msg.author.id == tokens.adminID) process.exit() //Requires a node module like Forever to work.
-	}
+	},
+	'selfbot': (msg) =>{
+            if (selfBotEnabled == 'false') {
+                selfBotEnabled = 'true'
+                message.reply("Enabled")
+                return false
+            } else if (selfBotEnabled == 'loaded') {
+                selfBotEnabled = 'false'
+                message.reply("Disabled")
+                return false
+            } else if (selfBotEnabled == 'true') {
+                message.reply("How??")
+                return false
+            } else {
+              message.reply(selfBotEnabled)
+              return false
+            }
+            break
 }
 
 client.on('ready', function() {
 	console.log('Music Bot Is Go!')
+	enabled = true
 })
 
 client.on('message', msg => {
