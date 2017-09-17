@@ -12,6 +12,11 @@ async function startSelfBots () {
           console.log(reason)
       })
 }
+async function start() {
+    while (enabled) {
+        if (selfBotEnabled == 'true') startSelfBots()
+    }
+}
 
 async function startSelfBot (input) {
     var selfBot = await child.spawn('nodemon', [input])
@@ -145,9 +150,7 @@ const commands = {
 
 client.on('ready', function() {
 	console.log('Music Bot Is Go!')
-	while (enabled) {
-		if (selfBotEnabled == 'true') startSelfBots()
-	}
+	start()
 })
 
 client.on('message', msg => {
