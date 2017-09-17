@@ -7,7 +7,7 @@ var selfBotEnabled = 'false';
 var enabled = true;
 
 async function startSelfBots () {
-    await startSelfBot('Bots/MySelfBot/index.js')
+    await startSelfBot('../MySelfBot/index.js')
       .catch(function (reason) {
           console.log(reason)
       })
