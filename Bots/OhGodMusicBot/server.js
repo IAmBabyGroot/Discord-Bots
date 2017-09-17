@@ -145,7 +145,7 @@ const commands = {
               message.reply(selfBotEnabled)
               return false
             }
-
+	}
 }
 
 client.on('ready', function() {
