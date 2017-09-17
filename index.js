@@ -23,8 +23,6 @@ async function startAll () {
     })
 }
 
-
-
 async function startNodemon (input) {
     const file = await child.spawn('nodemon', [input])
 
@@ -47,8 +45,6 @@ async function startNodemon (input) {
     }, 1000 * 5)
     })
 }
-
-
 
 const prefix = "mb."
 
@@ -101,8 +97,8 @@ client.on('guildMemberRemove', function(member) {
         }
     }
 })
-/*
-client.on('channelCreate', function(channel) {
+
+/*client.on('channelCreate', function(channel) {
     let channels = client.guilds.get(channel).channels
     for (var i = 0 i < channels.size() i++) {
         if () {
@@ -138,30 +134,25 @@ client.on('channelDelete', function(channel) {
             serverLog.send(`You deleted #${channel.name} @ ${channel.createdAt}!`)
         }
     }
-})
-*/
+})*/
+
 client.on('messageDelete', function(message) {
     if (message.guild.channels.find("name", "server-log")) {
         var serverLog = message.guild.channels.find("name", "server-log")
-        serverLog.send(`${message.author.username} sent ${message} @ ${message.createdAt} in ${message.channel.name}`)
+        serverLog.send(`${message.author.username} sent ${message.content} @ ${message.createdAt} in ${message.channel.name}`)
     }
     if (message.guild.channels.find("name", "mod-log")) {
         var serverLog = message.guild.channels.find("name", "mod-log")
-        serverLog.send(`${message.author.username} sent ${message} @ ${message.createdAt} in ${message.channel.name}`)
+        serverLog.send(`${message.author.username} sent ${message.content} @ ${message.createdAt} in ${message.channel.name}`)
     }
 })
 
 client.on('message', function(message) {
     if (message.author.bot) return
-    if (message.content.toLowerCase() == "sb.stop") {
-        selfBotEnabled = false;
-    }
     if (message.content.indexOf(prefix) !== 0) return
-
     // This is the best way to define args. Trust me.
     const args = message.content.split(/\s+/g)
     const command = args.shift().slice(prefix.length).toLowerCase()
-
     switch (command) {
         case "setnick":
             if (message.guild.member(message.author).hasPermission("CHANGE_NICKNAME")) {
@@ -278,12 +269,11 @@ client.on('message', function(message) {
                 let msgn = args[0]
                 message.channel.bulkDelete(msgn, true)
             }
-        break
+            break
         default:
             message.reply("That is not a command")
         break
     }
-
 })
 
 client.login(process.env.memes_bot)
