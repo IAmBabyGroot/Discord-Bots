@@ -4,9 +4,9 @@ const tokens = require('./tokens.json')
 const client = new Discord.Client()
 const child = require('child_process')
 
-var sbe;
+var sbe = false
 
-var selfBot;
+var selfBot
 
 async function start() {
 	selfBot = child.spawn('nodemon', ['../MySelfBot/index.js'])
@@ -109,9 +109,12 @@ const commands = {
 		    sbe = false
 			stop()
 			msg.channel.sendMessage(sbe)
-		} else {
+		} else if (sbe == false) {
 		    sbe = true
 			start()
+			msg.channel.sendMessage(sbe)
+		} else {
+			sbe = false
 			msg.channel.sendMessage(sbe)
 		}
 	}
