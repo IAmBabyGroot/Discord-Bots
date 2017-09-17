@@ -150,7 +150,6 @@ const commands = {
 
 client.on('ready', function() {
 	console.log('Music Bot Is Go!')
-	enabled = true
 })
 
 client.on('message', msg => {
