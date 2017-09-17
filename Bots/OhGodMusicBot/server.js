@@ -1,21 +1,16 @@
 const Discord = require('discord.js')
 const yt = require('ytdl-core')
 const tokens = require('./tokens.json')
+const client = new Discord.Client()
 
 var selfBotEnabled = 'false';
 var enabled = true;
-
-const client = new Discord.Client()
 
 async function startSelfBots () {
     await startSelfBot('Bots/MySelfBot/index.js')
       .catch(function (reason) {
           console.log(reason)
       })
-}
-
-while (enabled) {
-	if (selfBotEnabled == 'true') startSelfBots()
 }
 
 async function startSelfBot (input) {
@@ -150,6 +145,9 @@ const commands = {
 
 client.on('ready', function() {
 	console.log('Music Bot Is Go!')
+	while (enabled) {
+		if (selfBotEnabled == 'true') startSelfBots()
+	}
 })
 
 client.on('message', msg => {
