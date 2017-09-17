@@ -107,10 +107,12 @@ const commands = {
 	'selfbot': (msg) =>{
 		if (sbe == true) {
 		    sbe = false
-		    stop()
+			stop()
+			msg.channel.sendMessage(sbe)
 		} else {
 		    sbe = true
-		    start()
+			start()
+			msg.channel.sendMessage(sbe)
 		}
 	}
 }
