@@ -4,6 +4,8 @@ const tokens = require('./tokens.json')
 const client = new Discord.Client()
 const child = require('child_process')
 
+var sbe;
+
 var selfBot;
 
 async function start() {
