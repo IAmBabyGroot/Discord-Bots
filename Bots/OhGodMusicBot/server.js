@@ -9,7 +9,7 @@ var sbe;
 var selfBot;
 
 async function start() {
-	selfBot = child.spawn('nodemon', '../MySelfBot/index.js')
+	selfBot = child.spawn('nodemon', ['../MySelfBot/index.js'])
 }
 
 async function stop() {
