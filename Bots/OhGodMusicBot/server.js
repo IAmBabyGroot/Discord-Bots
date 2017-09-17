@@ -3,49 +3,27 @@ const yt = require('ytdl-core')
 const tokens = require('./tokens.json')
 const client = new Discord.Client()
 
-var selfBotEnabled = 'false';
-var enabled = true;
-
-start()
-
-async function startSelfBots () {
-    await startSelfBot('../MySelfBot/index.js')
-      .catch(function (reason) {
-          console.log(reason)
-      })
-}
 async function start() {
-    while (enabled) {
-        if (selfBotEnabled == 'true') startSelfBots()
-    }
+	
 }
 
-async function startSelfBot (input) {
-    var selfBot = await child.spawn('nodemon', [input])
+async function stop() {
+	
+}
 
-    selfBotEnabled = 'loaded'
+while (enabled == true) {
+	if (selfBotEnabled == 'true') {
 
-    selfBot.stdout.on('data', (data) => {
-    console.log(String(data))
-    })
+	} else if (selfBotEnabled == 'false') {
+	    selfBot.stdin.end()
+	    selfBot.stdout.destroy()
+	    selfBot.stderr.destroy()
+	    setTimeout(function() {
+		selfBot.kill()
+	    }, 500)
+	} else if (selfBotEnabled == 'loaded') {
 
-    selfBot.stderr.on('data', (data) => {
-    console.error(String(data))
-    })
-    while (enabled == true) {
-        if (selfBotEnabled == 'true') {
-            
-        } else if (selfBotEnabled == 'false') {
-            selfBot.stdin.end()
-            selfBot.stdout.destroy()
-            selfBot.stderr.destroy()
-            setTimeout(function() {
-                selfBot.kill()
-            }, 500)
-        } else if (selfBotEnabled == 'loaded') {
-
-        }
-    }
+	}
 }
 
 let queue = {}
@@ -132,21 +110,13 @@ const commands = {
 		if (msg.author.id == tokens.adminID) process.exit() //Requires a node module like Forever to work.
 	},
 	'selfbot': (msg) =>{
-            if (selfBotEnabled == 'false') {
-                selfBotEnabled = 'true'
-                message.reply("Enabled")
-                return false
-            } else if (selfBotEnabled == 'loaded') {
-                selfBotEnabled = 'false'
-                message.reply("Disabled")
-                return false
-            } else if (selfBotEnabled == 'true') {
-                message.reply("How??")
-                return false
-            } else {
-              message.reply(selfBotEnabled)
-              return false
-            }
+		if (sbe == true) {
+		    sbe = false
+		    stop()
+		} else {
+		    sbe = true
+		    start()
+		}
 	}
 }
 
