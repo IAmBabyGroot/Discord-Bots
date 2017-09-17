@@ -2,28 +2,21 @@ const Discord = require('discord.js')
 const yt = require('ytdl-core')
 const tokens = require('./tokens.json')
 const client = new Discord.Client()
+const child = require('child_process')
+
+var selfBot;
 
 async function start() {
-	
+	selfBot = child.spawn('nodemon', '../MySelfBot/index.js')
 }
 
 async function stop() {
-	
-}
-
-while (enabled == true) {
-	if (selfBotEnabled == 'true') {
-
-	} else if (selfBotEnabled == 'false') {
-	    selfBot.stdin.end()
-	    selfBot.stdout.destroy()
-	    selfBot.stderr.destroy()
-	    setTimeout(function() {
+	selfBot.stdin.end()
+	selfBot.stdout.destroy()
+	selfBot.stderr.destroy()
+	setTimeout(function() {
 		selfBot.kill()
-	    }, 500)
-	} else if (selfBotEnabled == 'loaded') {
-
-	}
+	}, 500)
 }
 
 let queue = {}
