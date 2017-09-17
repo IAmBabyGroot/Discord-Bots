@@ -30,7 +30,7 @@ client.on('message', function(message) {
             }
             game = game.trim();
             client.user.setGame(game);
-        break;
+        break
         case "status":
             if (args.length == 0 || args.length >= 2) {
                 message.channel.send("You Must Only Specify A Status!")
@@ -39,7 +39,7 @@ client.on('message', function(message) {
             if ((args[0].toLowerCase() === "online") || (args[0].toLowerCase() === "idle") || (args[0].toLowerCase() === "dnd") || (args[0].toLowerCase() === "invisible")) {
                 client.user.setStatus(args[0].toLowerCase())
             }
-        break;
+        break
         case "ping":
             message.channel.send(`${client.ping} ping`)
         break
@@ -63,7 +63,10 @@ client.on('message', function(message) {
         break
         case "help":
             message.channel.send("Commands: \n\nHelp\nStatus\nGame\nPing\n\nEnd")
-        break;
+        break
+        case  "membercount":
+            message.channel.send(`Member Count: ${message.guild.memberCount}`)
+        break
     }
 })
 
