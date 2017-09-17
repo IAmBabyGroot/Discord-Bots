@@ -6,6 +6,8 @@ const client = new Discord.Client()
 var selfBotEnabled = 'false';
 var enabled = true;
 
+start()
+
 async function startSelfBots () {
     await startSelfBot('../MySelfBot/index.js')
       .catch(function (reason) {
@@ -150,7 +152,6 @@ const commands = {
 
 client.on('ready', function() {
 	console.log('Music Bot Is Go!')
-	start()
 })
 
 client.on('message', msg => {
