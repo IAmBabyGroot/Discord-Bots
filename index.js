@@ -7,6 +7,8 @@ var Member
 var Guild
 var Guilds
 
+var welcomes = {}
+
 const child = require('child_process')
 
 startAll()
@@ -268,6 +270,20 @@ client.on('message', function(message) {
             if (message.guild.member(message.author).hasPermission("MANAGE_MESSAGES", false, true, true)) {
                 let msgn = args[0]
                 message.channel.bulkDelete(msgn, true)
+            }
+            break
+            case "setwelcome":
+            if (!welcomes[message.guild.id]) {
+                welcomes[message.guild.icon] = {
+                    enabled: false
+                }
+            }
+            var welcome = welcomes[message.guild.id]
+
+            if (welcome.enabled) {
+                welcome.enabled = false
+            } else {
+                welcome.enabled = true
             }
             break
         default:
